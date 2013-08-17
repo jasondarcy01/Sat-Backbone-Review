@@ -19,17 +19,23 @@
     var MainView = Backbone.View.extend ({
       el : $('#main'),     //selects element on html page
 
+      initialize: function() {
+        this.$el.append("stuff");  //in the main div put in "stuff"
+      },
+
       events: {             //create an event
         "click" : "message",
+        "mouseover" : "hover"
       },
 
       message: function() {     //define the event
         alert ("hello");
       },
 
-      initialize: function() {
-        this.$el.append("stuff");  //in the main div put in "stuff"
+      hover: function() {
+        this.$el.css("color", "red");
       }
+
     });
     var main = new MainView();
   </script>
