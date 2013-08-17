@@ -6,8 +6,10 @@
 <body>
     <div id="main"></div>
 
-    <script type="x-handlebars-template"></script>
-
+    <script id="book-template" type="x-handlebars-template">
+        <h1>{{title}}</h1>
+        <h3>{{author}}</h3>
+    </script>
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -37,7 +39,37 @@
       }
 
     });
+
     var main = new MainView();
+
+    var Book = Backbone.Model.extend({
+      defaults: {
+        title: "Moby Dick",
+        author: "Herman Melville",
+      }
+    });
+
+    var BookView = Backbone.View.extend({
+
+      initialize: function() {
+        console.log("hi jason i'm the initialize function. i'm a constructor.");
+        var src = $("#book-template").html();
+        var template = Handlebars.compile(src);
+        this.template = template;
+      },
+
+      render: function(book) {
+        var book_item = this.$el.append(this.template(book.attributes));
+        $("body").append(book_item);
+      }
+
+    });
+
+    var book = new Book()
+    var bookView = new BookView();
+
+    bookView.render(book);
+
   </script>
 
 </body>
